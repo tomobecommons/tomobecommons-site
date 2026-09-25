@@ -1,0 +1,58 @@
+---
+layout: base.njk
+permalink: /index.html
+---
+
+{% set newsList = collections.news %}
+{% if newsList and newsList.length %}
+<section>
+  <h2>お知らせ</h2>
+  {% for post in newsList %}
+  <article class="news-item">
+    <time>{{ post.data.date | jpDate }}</time>
+    <h3>{{ post.data.title }}</h3>
+    <div class="body">{{ post.templateContent | safe }}</div>
+  </article>
+  {% endfor %}
+</section>
+{% endif %}
+
+<section>
+  <h2>わたしたちについて</h2>
+  {{ org.about | paragraphs | safe }}
+</section>
+
+<section>
+  <h2>設立の経緯</h2>
+  {{ org.history | paragraphs | safe }}
+</section>
+
+<section>
+  <h2>活動内容</h2>
+  {% for item in activities.items %}
+  <div class="activity">
+    <h3>{{ item.title }}</h3>
+    <p>{{ item.body | br | safe }}</p>
+  </div>
+  {% endfor %}
+</section>
+
+<section>
+  <h2>団体概要</h2>
+  <table>
+    <tr><th>法人名</th><td>{{ org.name }}</td></tr>
+    <tr><th>法人番号</th><td>{{ org.corporateNumber }}</td></tr>
+    <tr><th>所在地</th><td>{{ org.postalCode }}　{{ org.address }}</td></tr>
+    <tr><th>設立</th><td>{{ org.established | br | safe }}</td></tr>
+    <tr><th>代表者</th><td>{{ org.representatives | br | safe }}</td></tr>
+    <tr><th>活動の目的</th><td>
+      {% for p in org.purposes %}{{ loop.index }}. {{ p }}{% if not loop.last %}<br>{% endif %}{% endfor %}
+    </td></tr>
+    <tr><th>お問い合わせ</th><td><a href="mailto:{{ org.email }}">{{ org.email }}</a></td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>連携・協力</h2>
+  <p>{{ org.partners | br | safe }}</p>
+</section>

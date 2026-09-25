@@ -1,0 +1,14 @@
+{
+  "name": "tomobecommons-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "特定非営利活動法人友部コモンズ 公式サイト",
+  "scripts": {
+    "build": "eleventy",
+    "start": "eleventy --serve"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0"
+  }
+}

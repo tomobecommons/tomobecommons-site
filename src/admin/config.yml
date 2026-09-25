@@ -1,0 +1,98 @@
+backend:
+  name: github
+  # ↓ Organization名が「tomobecommons」以外になった場合は、ここだけ書き換えてください
+  repo: tomobecommons/tomobecommons-site
+  branch: main
+
+locale: ja
+
+media_folder: "src/images"
+public_folder: "/images"
+
+publish_mode: simple
+
+collections:
+  # ------------------------------------------------------------------
+  # お知らせ（追加・編集・削除ができます）
+  # ------------------------------------------------------------------
+  - name: news
+    label: お知らせ
+    label_singular: お知らせ
+    folder: "src/news"
+    create: true
+    delete: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    extension: md
+    format: yaml-frontmatter
+    summary: "{{date | date('YYYY/MM/DD')}}　{{title}}"
+    sortable_fields: ["date", "title"]
+    fields:
+      - { label: "タイトル", name: "title", widget: "string" }
+      - {
+          label: "日付",
+          name: "date",
+          widget: "datetime",
+          date_format: "YYYY-MM-DD",
+          time_format: false,
+          format: "YYYY-MM-DD",
+        }
+      - { label: "本文", name: "body", widget: "markdown" }
+
+  # ------------------------------------------------------------------
+  # サイトの内容（決まった項目を書き換えます）
+  # ------------------------------------------------------------------
+  - name: settings
+    label: サイトの内容
+    editor:
+      preview: false
+    files:
+      - name: org
+        label: 団体情報
+        file: "src/_data/org.json"
+        fields:
+          - { label: "法人名", name: "name", widget: "string" }
+          - { label: "英語表記（ヘッダー上部）", name: "nameEn", widget: "string" }
+          - {
+              label: "ミッション（ヘッダーの一文）",
+              name: "mission",
+              widget: "text",
+              hint: "改行するとそのまま改行されます",
+            }
+          - {
+              label: "わたしたちについて",
+              name: "about",
+              widget: "text",
+              hint: "段落を分けるときは空行を1行入れてください",
+            }
+          - {
+              label: "設立の経緯",
+              name: "history",
+              widget: "text",
+              hint: "段落を分けるときは空行を1行入れてください",
+            }
+          - { label: "法人番号", name: "corporateNumber", widget: "string" }
+          - { label: "郵便番号", name: "postalCode", widget: "string" }
+          - { label: "所在地", name: "address", widget: "string" }
+          - { label: "設立", name: "established", widget: "text" }
+          - { label: "代表者", name: "representatives", widget: "text" }
+          - {
+              label: "活動の目的",
+              name: "purposes",
+              widget: "list",
+              field: { label: "目的", name: "item", widget: "string" },
+            }
+          - { label: "お問い合わせ先メールアドレス", name: "email", widget: "string" }
+          - { label: "連携・協力", name: "partners", widget: "text" }
+
+      - name: activities
+        label: 活動内容
+        file: "src/_data/activities.json"
+        fields:
+          - label: "活動"
+            name: "items"
+            widget: "list"
+            label_singular: "活動"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "見出し", name: "title", widget: "string" }
+              - { label: "説明", name: "body", widget: "text" }
