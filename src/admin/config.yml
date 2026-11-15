@@ -9,7 +9,7 @@ locale: ja
 media_folder: "src/images"
 public_folder: "/images"
 
-publish_mode: simple
+publish_mode: editorial_workflow
 
 collections:
   # ------------------------------------------------------------------
